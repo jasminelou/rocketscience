@@ -57,3 +57,34 @@ def StartRocket():
     if not (Stage1Started or Stage2Started):
         Stage1Started = True
         StartTime = rocket.shiptime
+        
+def GetMass():
+    global Stage1Started, Stage2Started, PayloadLaunched
+    if Stage1Started:
+        return me1 + me2 + mep + mp2 + mp1*(tburn1-BurnTime)/tburn1
+    elif Stage2Started:
+        return me2 + mep + mp2*(tburn2-BurnTime)/tburn2
+    elif PayloadLaunched:
+        return mep
+    else:
+        return me1 + me2 + mep + mp2 + mp1
+        
+def GetStatus():
+    global Stage1Started, Stage2Started, PayloadLaunched
+    if Stage1Started:
+        return "STAGE 1 FIRING"
+    elif Stage2Started:
+        return "STAGE 2 FIRING"
+    elif PayloadLaunched:
+        return "PAYLOAD DELIVERED"
+    else:
+        return "WAITING FOR LAUNCH"
+        
+start = InputButton((10,400), "START", StartRocket, positioning="physical", size=15)
+
+status = Label((10,420), GetStatus, positioning="physical", size=15)
+
+tz = Slider((10, 360), 0, 5, 0, positioning="physical")
+
+rocket = Rocket(earth, thrust = GetThrust, mass = GetMass, timezoom = tz)
+earth.run(rocket)
