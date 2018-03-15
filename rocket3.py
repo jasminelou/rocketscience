@@ -29,4 +29,12 @@ def GetThrust():
     return 0
     
 def StartRocket():
-    global RocketStarted
+    global RocketStarted, StartTime
+    if not RocketStarted:
+        RocketStarted = True
+        StartTime = rocket.shiptime
+        
+start = InputButton((10, 400), "START", StartRocket, positioning="physical", size=15)
+
+rocket = Rocket(earth, thrust=GetThrust, mass=me+mp)
+earth.run(rocket)
