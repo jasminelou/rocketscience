@@ -2,7 +2,7 @@ from ggrocket import *
 from math import *
 from ggmath import *
 
-earth = Planet(planetmass=0, viewscale=0.000005)
+earth = Planet(planetmass=0, viewscale=0.00005)
 
 RocketStarted = False
 StartTime = None
@@ -34,7 +34,13 @@ def StartRocket():
         RocketStarted = True
         StartTime = rocket.shiptime
         
-start = InputButton((10, 400), "START", StartRocket, positioning="physical", size=15)
+def GetMass():
+    global RocketStarted
+    if RocketStarted:
+        return me+ mp*(tburn-BurnTime)/tburn
+    return me + mp
+        
+start = InputButton((10, 400), "START", StartRocket, positioning="physical", size=15, mass = GetMass)
 
 rocket = Rocket(earth, thrust=GetThrust, mass=me+mp)
 earth.run(rocket)
