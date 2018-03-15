@@ -40,7 +40,7 @@ def GetMass():
         return me+ mp*(tburn-BurnTime)/tburn
     return me + mp
         
-start = InputButton((10, 400), "START", StartRocket, positioning="physical", size=15, mass = GetMass)
+start = InputButton((10, 400), "START", StartRocket, positioning="physical", size=15)
 
-rocket = Rocket(earth, thrust=GetThrust, mass=me+mp)
+rocket = Rocket(earth, thrust=GetThrust, mass=GetMass)
 earth.run(rocket)
