@@ -15,11 +15,11 @@ N1D = 9
 Ftotal = F1D * N1D
 tburn = 180
 
-vmax = Ftotal*tburn/(me+mp)
-print("Predicted final velocity (Newton's 2nd Law), vmax: ", vmax, " m/s")
+vmaxre = Ftotal*tburn/mp*log((me+mp)/me)
+print("Predicted final velocity (Rocket Equation), vmax: ", vmaxre, " m/s")
 
 def GetThrust():
-    global BurnTurn, RocketStarted
+    global BurnTime, RocketStarted
     if RocketStarted:
         BurnTime = rocket.shiptime - StartTime
         if BurnTime >= tburn:
