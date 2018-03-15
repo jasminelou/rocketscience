@@ -2,7 +2,7 @@ from ggrocket import *
 from math import *
 from ggmath import *
 
-earth = Planet(planetmass=0)
+earth = Planet(planetmass=0, viewscale=0.000005)
 
 RocketStarted = False
 StartTime = None
@@ -11,7 +11,7 @@ BurnTime = 0
 me = 25600
 mp = 395700
 F1D = 716000
-NID = 9
+N1D = 9
 Ftotal = F1D * N1D
 tburn = 180
 
